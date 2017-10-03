@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="customView">
+        <attr name="bxRadius" format="integer"/>
+        <attr name="bxStrokeWidth" format="integer"/>
+        <attr name="bxStrokeColor" format="color|reference" />
+        <attr name="bxTextSize"    format="integer"/>
+        <attr name="bxTextColor"   format="color|reference"/>
+        <attr name="bxBannerContent"    format="string"/>
+    </declare-styleable>
+</resources>
