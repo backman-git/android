@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -77,6 +79,8 @@ public class customView extends View implements View.OnClickListener
                 sLabel = attrs.getString(R.styleable.customView_bxBannerContent);
 
 
+
+
             }finally {
                 attrs.recycle();
             }
@@ -88,6 +92,7 @@ public class customView extends View implements View.OnClickListener
 
         this.setOnClickListener(this);
         this.setClickable(true);
+        this.setSaveEnabled(true);
 
     }
 
@@ -189,6 +194,83 @@ public class customView extends View implements View.OnClickListener
         invalidate();
 
     }
+
+
+    public static class SavedState extends BaseSavedState{
+
+        int radius;
+        int textSize;
+
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+
+
+
+        public SavedState(Parcelable state) {
+            super(state);
+
+        }
+
+        public SavedState(Parcel in ){
+            super(in);
+
+            this.radius = in.readInt();
+            this.textSize = in.readInt();
+
+        }
+
+
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+
+            out.writeInt(radius);
+            out.writeInt(textSize);
+
+
+        }
+    }
+
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+
+        Parcelable state=super.onSaveInstanceState();
+        SavedState savedState = new SavedState(state);
+        savedState.radius = this.radius;
+        savedState.textSize = this.textSize;
+        Log.d(tag,"onSave");
+
+        return savedState;
+
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+
+        if (!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+        //it is our state
+        SavedState savedState = (SavedState)state;
+        //Peel it and give the child to the super class
+        super.onRestoreInstanceState(savedState.getSuperState());
+        this.radius = savedState.radius;
+        this.textSize = savedState.textSize;
+        Log.d(tag,"onLoad");
+    }
+
+
 }
 
 

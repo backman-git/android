@@ -11,17 +11,13 @@
     tools:context="com.example.backman.compoundcontrol.MainActivity">
 
 
+    <com.example.backman.compoundcontrol.SingleChooseItem
 
-    <com.example.backman.compoundcontrol.wordAddCompoundControl
-        android:id="@+id/wordAddControl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="vertical"
+        android:layout_alignParentTop="true" />
 
-
-
-
-        />
 
 
 </RelativeLayout>
